@@ -1,0 +1,12 @@
+{
+  "name": "myfirstserver",
+  "version": "1.0.0",
+  "description": "my first backend node js server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nameet mandwal",
+  "license": "ISC"
+}
