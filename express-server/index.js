@@ -2,50 +2,29 @@
 
 //create a server using express js(install by cmd npm i express)
 const express = require("express");
+const { registerUserDetails } = require("./controllers/user.controller");
+const {
+  fetchServerInformation,
+  healthCheck,
+} = require("./controllers/server.controller");
+
+const { tokenMiddleWare } = require("./middlewares/token");
 
 //create an instance of express
 const app = express();
 
 //middlewares
-app.use(express.json());
+// middleware are the getway between req to api path . using middleware we can modify or change req before reaching to api path/route
+app.use(express.json()); // this will give access to server of req.body
+app.use(express.urlencoded());
 
 // api routes
 // app.get(Path, controller function )// get api route
-app.get("/", (req, res) => {
-  res.status(200);
-  res.send(
-    `<h1>welcome to the server</h1>
-    <table style="border:1px solid black; border-collapse:collapse;">
-    <tr style="border:1px solid black">
-     <td style="border:1px solid black">status</td>
-     <td style="border:1px solid black">value</td>
-    </tr>
-    <tr style="border:1px solid black">
-    <td style="border:1px solid black">200</td>
-    <td style="border:1px solid black" >Ok</td>
-    </tr>
-    </table>`
-  );
-}); // get api route
+app.get("/", healthCheck); // get api route
 
-app.get("/serverInfo", (req, res) => {
-  res.status(200);
-  res.send({
-    server: "express js",
-    level: "low",
-    apiEndPoints: 2,
-    apiMethods: ["GET", "POST"],
-  });
-});
+app.get("/serverInfo", fetchServerInformation);
 
-app.post("/registerDetails", (req, res) => {
-  console.log(req.body);
-  console.log(req.params);
-  console.log(req.query);
-  res.status(200);
-  res.json("completedzs");
-});
-
+app.post("/registerDetails", tokenMiddleWare, registerUserDetails);
 
 //server listening on port
 // app.listen(PORT, CallbackFn)
