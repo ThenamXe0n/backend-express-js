@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotes hub</title>
+    <style>
+      #root {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+      }
+      #quotesBox {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 70vw;
+        margin: auto;
+        padding: 50px;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="quotesBox">
+        <h1 style="text-align: center">Todays Quotes</h1>
+        <q id="quotetext">kshfksdhfksdhfkjfhskhf</q>
+        <cite
+          id="author"
+          style="
+            align-self: flex-end;
+            text-transform: uppercase;
+            color: cornflowerblue;
+            font-weight: bold;
+          "
+          >- rumi</cite
+        >
+      </div>
+    </div>
+
+    <script>
+      async function getQuote() {
+        try {
+          let response = await fetch("http://localhost:8080/quotes");
+          let data = await response.json();
+          console.log(data);
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+
+      let quote = {
+        quote: "daily practice makes your backend skills better",
+        author: "somexyz developer",
+      };
+
+      async function addQuote() {
+        try {
+          const response = await fetch(
+            "http://localhost:8080/registerDetails",
+            {
+              method: "POST",
+              body: JSON.stringify(quote),
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer token",
+              },
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+        } catch (err) {
+          alert(err.message);
+        }
+      }
+    </script>
+  </body>
+</html>

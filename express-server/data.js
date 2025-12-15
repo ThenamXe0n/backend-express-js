@@ -172,4 +172,33 @@ let quotesData = [
   },
 ];
 
-module.exports = { quotesData };
+let userCredentials = [
+  {
+    name: "harshal",
+    email: "hr@gmail.com",
+    password: "test@123",
+    role: "executive",
+    mobile: "987987987",
+    address: {
+      houseNo: "41",
+      block: "C",
+      city: "indore",
+      state: "MP",
+      pincode: "452009",
+    },
+  },
+  {
+    name: "Komal",
+    email: "komal@gmail.com",
+    password: "test@123",
+    role: "executive",
+    address: {
+      houseNo: "41",
+      block: "C",
+      city: "indore",
+      state: "MP",
+      pincode: "452009",
+    },
+  },
+];
+module.exports = { quotesData,userCredentials };
