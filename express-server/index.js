@@ -2,6 +2,7 @@
 
 //create a server using express js(install by cmd npm i express)
 const express = require("express");
+const fs = require("fs");
 const MainApiEndPoint = require("./routes/api.routes");
 const { registerUserDetails } = require("./controllers/user.controller");
 const {
@@ -41,6 +42,17 @@ app.use("/api", MainApiEndPoint);
 
 //server listening on port
 // app.listen(PORT, CallbackFn)
+
+console.log(
+  fs.readFileSync("index.js", (error, data) => {
+    try {
+      console.log("exist", data);
+    } catch (err) {
+      console.log(err);
+    }
+  },'utf-8')
+);
+
 app.listen(8080, async () => {
   try {
     await connectDb();
