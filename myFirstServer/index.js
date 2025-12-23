@@ -47,3 +47,6 @@
 // server.listen(8080, () => {
 //   console.log("server is listening on port 8080");
 // }); //port , callback
+export function healtcheck(req, res) {
+  res.send("health is ok");
+}
