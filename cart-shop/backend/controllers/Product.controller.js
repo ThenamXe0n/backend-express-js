@@ -5,7 +5,7 @@ export async function addProduct(req, res) {
   console.log("controller file from multer",req.file)
 
 
-  let filePath =`${req.protocol}://${req.host}/${req.file.destination}/${req.file.filename}`
+  let filePath =`${req.protocol}://${req.host}/${req.file.destination}/${req.file.originalname}`
   try {
     const generatedCode = generateProductCode();
     const product = await ProductModel.create({

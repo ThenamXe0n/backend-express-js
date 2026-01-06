@@ -44,13 +44,13 @@ export default function NavBar() {
   };
 
   const NavLink = ({ icon: Icon, text, href = "#" }) => (
-    <a
-      href={href}
+    <Link
+      to={href}
       className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
     >
       <Icon className="w-5 h-5" />
       <span>{text}</span>
-    </a>
+    </Link>
   );
 
   return (
@@ -69,10 +69,10 @@ export default function NavBar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
-            <NavLink icon={Home} text="Home" href="#" />
-            <NavLink icon={ShoppingBag} text="Products" href="#products" />
-            <NavLink icon={Package} text="My Orders" href="#orders" />
-            <NavLink icon={ShoppingCart} text="My Cart" href="#cart" />
+            <NavLink icon={Home} text="Home" href={routePath.HOME} />
+            <NavLink icon={ShoppingBag} text="Products" href={routePath.PRODUCT} />
+            <NavLink icon={Package} text="My Orders" href={routePath.MYORDERS} />
+            <NavLink icon={ShoppingCart} text="My Cart" href={routePath.MYCART} />
           </div>
 
           {/* User Section */}

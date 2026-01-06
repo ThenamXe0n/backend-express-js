@@ -1,0 +1,19 @@
+import React from "react";
+import ProductShowcase from "../components/sections/ProductShowcase";
+
+const ProductPage = () => {
+  return (
+    <div className="h-screen w-screen flex gap-2 items-stretch ">
+      {/* filter section */}
+      <div className="border w-xs border-red-400">
+
+      </div>
+      {/* product showcase section  */}
+      <div className="w-full overflow-y-scroll flex-1 border border-blue-400">
+        <ProductShowcase/>
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;

@@ -5,11 +5,12 @@ const mystorage = multer.diskStorage({
     callback(null, "uploads/img");
   },
   filename: function (req, file, callback) {
+    console.log(file)
     console.log("file is ==>", file);
     // console.log("req is ==>",req)
 
   
-    callback(null, file.fieldname + "-" + Date.now()+".png");
+    callback(null, file.fieldname + "-" + Date.now()+file.originalname);
   },
 });
 

@@ -86,7 +86,7 @@ export default function ProductUploadForm({ setProductList }) {
         <input
           type="file"
           name="poster"
-          accept="image/*"
+          
           onChange={(e) => {
             setPoster(e.target.files[0]);
             let url = URL.createObjectURL(e.target.files[0]);
