@@ -1,16 +1,39 @@
 import { LayoutGrid, Rows2 } from "lucide-react";
 import React, { useState } from "react";
 import ProductDisplayCard from "../cards/ProductDisplayCard";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { fetchALLProductAPI } from "../../services/apiCollection";
 
 const activeStyle = "size-8 p-1 bg-white rounded-md text-cyan-400";
 const deActiveStyle = "size-8 p-1 ";
 
 const ProductShowcase = () => {
   const [layoutView, setLayoutView] = useState("list");
+  const [productList, setProductList] = useState([]);
+
+  async function loadProduct() {
+    try {
+      let dataToSet = await fetchALLProductAPI();
+      setProductList(dataToSet.data);
+      toast.success(dataToSet.message, {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      toast.error(error.message, {
+        position: "bottom-right",
+      });
+    }
+  }
+
+  useEffect(() => {
+    loadProduct();
+  }, []);
+
   return (
     <div className="py-3 h-full">
       {/* header */}
-      <div className="w-full flex px-5 items-center justify-between">
+      <div className="w-full border-b border-gray-300 mb-3 pb-3 bg-white z-50 sticky top-0 flex px-5 items-center justify-between">
         <div className="w-fit flex py-2 px-2 bg-gray-300/80 rounded-md">
           <div
             onClick={() => setLayoutView("grid")}
@@ -30,16 +53,20 @@ const ProductShowcase = () => {
           sorted by : <span className="text-cyan-400">Popular</span>{" "}
         </div>
       </div>
-      <hr className="my-6" />
+
       {/* product list section  */}
-      <div className="grid gap-4 justify-items-center grid-cols-1  sm:grid-cols-2 md:grid-cols-3 ">
-        <ProductDisplayCard stock={1} />
-        <ProductDisplayCard />
-        <ProductDisplayCard  stock={100}/>
-        <ProductDisplayCard />
-        <ProductDisplayCard />
-        <ProductDisplayCard />
-      </div>
+      {productList?.length > 0 ? (
+        <div className="grid gap-6 justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
+          {Array.isArray(productList) &&
+            productList.map((item, itemIdx) => (
+              <ProductDisplayCard key={itemIdx} stock={item.stock} brand={item.brand} img={item.thumbnail} name={item.name} price={item.price} />
+            ))}
+        </div>
+      ) : (
+        <div>
+          <h4>No product to show!! </h4>
+        </div>
+      )}
     </div>
   );
 };

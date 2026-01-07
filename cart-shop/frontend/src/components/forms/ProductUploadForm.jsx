@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function ProductUploadForm({ setProductList }) {
   const [formData, setFormData] = useState({
@@ -25,34 +26,60 @@ export default function ProductUploadForm({ setProductList }) {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = new FormData();
+    try {
+      const payload = new FormData();
 
-    Object.entries(formData).forEach(([key, value]) => {
-      payload.append(key, value);
-    });
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value);
+      });
 
-    if (poster) payload.append("poster", poster);
+      if (poster) payload.append("poster", poster);
 
-    if (images.length > 0) {
-      images.forEach((img) => payload.append("images", img));
-    }
-
-    // safely convert features JSON
-    if (formData.features) {
-      try {
-        payload.set("features", JSON.stringify(JSON.parse(formData.features)));
-      } catch {
-        alert("Features must be valid JSON");
-        return;
+      if (images.length > 0) {
+        images.forEach((img) => payload.append("images", img));
       }
-    }
 
-    let response =  await axios.post("http://localhost:8080/api/product/create", payload);
-    let updatedData = response.data.data
-    setProductList((prev)=>[...prev,updatedData])
+      // safely convert features JSON
+      if (formData.features) {
+        try {
+          payload.set(
+            "features",
+            JSON.stringify(JSON.parse(formData.features))
+          );
+        } catch {
+          alert("Features must be valid JSON");
+          return;
+        }
+      }
+
+      let response = await axios.post(
+        "http://localhost:8080/api/product/create",
+        payload
+      );
+      let updatedData = response.data.data;
+      setProductList((prev) => [...prev, updatedData]);
+
+      toast.success("product uploaded successfully!");
+
+      setFormData({
+        name: "",
+        price: "",
+        mrp: "",
+        brand: "",
+        category: "",
+        stock: 1,
+        description: "",
+        features: "",
+        seller: "",
+      });
+      setPosterPreview(null)
+    } catch (error) {
+      toast.error("failed to upload product");
+      console.log(error);
+    }
   };
 
   return (
@@ -86,7 +113,6 @@ export default function ProductUploadForm({ setProductList }) {
         <input
           type="file"
           name="poster"
-          
           onChange={(e) => {
             setPoster(e.target.files[0]);
             let url = URL.createObjectURL(e.target.files[0]);

@@ -9,6 +9,7 @@ import ManageProducts from "./pages/ManageProducts";
 import ProductPage from "./pages/ProductPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import MyCart from "./pages/MyCart";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path={routePath.REGISTER} element={<RegisterPage />} />
         <Route path={routePath.ADDPRODUCT} element={<ManageProducts />} />
       </Routes>
+      <Toaster />
     </>
   );
 }

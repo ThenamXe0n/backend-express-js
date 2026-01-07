@@ -5,11 +5,11 @@ const ProductPage = () => {
   return (
     <div className="h-screen w-screen flex gap-2 items-stretch ">
       {/* filter section */}
-      <div className="border w-xs border-red-400">
+      <div className=" w-xs ">
 
       </div>
       {/* product showcase section  */}
-      <div className="w-full overflow-y-scroll flex-1 border border-blue-400">
+      <div className="w-full  flex-1 ">
         <ProductShowcase/>
       </div>
     </div>
