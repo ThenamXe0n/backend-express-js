@@ -8,5 +8,8 @@ export const routePath = {
   LOGIN: "/login",
 
   // admin or protected
-  ADDPRODUCT:"/add-product"
+  ADDPRODUCT:"/add-product",
+
+  //admin pages 
+  DASHBOARD:"/admin/dashboard"
 };

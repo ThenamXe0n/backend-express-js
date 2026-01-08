@@ -8,12 +8,16 @@ import {
   LogOut,
   Menu,
   X,
+  PlusCircle,
 } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
+import { toast } from "react-hot-toast";
 
 export default function NavBar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const loggedInUserDetails = JSON.parse(sessionStorage.getItem("userDetail"));
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
@@ -36,13 +40,25 @@ export default function NavBar() {
   }, [pathname]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("isLoggedIn");
-    sessionStorage.removeItem("userDetail");
-    setIsLoggedIn(false);
-    setUserDetails(null);
-    setShowUserMenu(false);
+    let ask = confirm("are you sure to logout?");
+    if (ask) {
+      sessionStorage.removeItem("isLoggedIn");
+      sessionStorage.removeItem("userDetail");
+      setIsLoggedIn(false);
+      setUserDetails(null);
+      setShowUserMenu(false);
+      toast.success("user logged out!!");
+    } else {
+      toast.success("logout cancelled !");
+    }
+    console.log("ask is", ask);
   };
 
+  const handleNavToaddProduct = () => {
+    setIsMobileMenuOpen(false);
+    setShowUserMenu(false);
+    navigate(routePath.ADDPRODUCT);
+  };
   const NavLink = ({ icon: Icon, text, href = "#" }) => (
     <Link
       to={href}
@@ -70,9 +86,21 @@ export default function NavBar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             <NavLink icon={Home} text="Home" href={routePath.HOME} />
-            <NavLink icon={ShoppingBag} text="Products" href={routePath.PRODUCT} />
-            <NavLink icon={Package} text="My Orders" href={routePath.MYORDERS} />
-            <NavLink icon={ShoppingCart} text="My Cart" href={routePath.MYCART} />
+            <NavLink
+              icon={ShoppingBag}
+              text="Products"
+              href={routePath.PRODUCT}
+            />
+            <NavLink
+              icon={Package}
+              text="My Orders"
+              href={routePath.MYORDERS}
+            />
+            <NavLink
+              icon={ShoppingCart}
+              text="My Cart"
+              href={routePath.MYCART}
+            />
           </div>
 
           {/* User Section */}
@@ -110,6 +138,12 @@ export default function NavBar() {
                         {userDetails.role || "Customer"}
                       </span>
                     </div>
+                   {loggedInUserDetails.role==="vendor" && <button
+                      onClick={handleNavToaddProduct}
+                      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
+                    >
+                      add products
+                    </button>}
                     <button
                       onClick={handleLogout}
                       className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200"
@@ -180,6 +214,12 @@ export default function NavBar() {
                       {userDetails.role || "Customer"}
                     </span>
                   </div>
+                 {loggedInUserDetails.role==="vendor" && <button
+                    onClick={handleNavToaddProduct}
+                    className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium "
+                  >
+                    <PlusCircle /> Add products
+                  </button>}
                   <button
                     onClick={handleLogout}
                     className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 font-medium"

@@ -10,6 +10,9 @@ import ProductPage from "./pages/ProductPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import MyCart from "./pages/MyCart";
 import { Toaster } from "react-hot-toast";
+import VendorProtectedRouter from "./routes/protectedRouters/VendorProtectedRouter";
+import AdminDashboard from "./pages/administration/AdminDashboard";
+import AdminProtectedRouter from "./routes/protectedRouters/AdminProtectedRouter";
 
 function App() {
   return (
@@ -22,7 +25,31 @@ function App() {
         <Route path={routePath.MYORDERS} element={<MyOrdersPage />} />
         <Route path={routePath.MYCART} element={<MyCart />} />
         <Route path={routePath.REGISTER} element={<RegisterPage />} />
-        <Route path={routePath.ADDPRODUCT} element={<ManageProducts />} />
+      
+        <Route
+          path={routePath.ADDPRODUCT}
+          element={
+            <VendorProtectedRouter>
+              <ManageProducts />
+            </VendorProtectedRouter>
+          }
+        />
+      </Routes>
+{/* // vendor */}
+      <Routes>
+
+      </Routes>
+      
+      {/* admin protected */}
+      <Routes>
+  <Route
+          path={routePath.DASHBOARD}
+          element={
+            <AdminProtectedRouter>
+              <AdminDashboard />
+            </AdminProtectedRouter>
+          }
+        />
       </Routes>
       <Toaster />
     </>
