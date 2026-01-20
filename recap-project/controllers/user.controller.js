@@ -1,12 +1,13 @@
 const UserModel = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 async function createUser(req, res) {
   const payload = req.body;
   console.log("payload", payload);
 
   //incrypt or hash the payload password and than store it in database (we use bcrypt for that)
-  let hashedPassword;
+  let hashedPassword; //null
   hashedPassword = await bcrypt.hash(payload.password, 10);
 
   console.log("hashed password", hashedPassword);
@@ -49,9 +50,14 @@ async function loginUser(req, res) {
       });
     }
 
+    let jwtPayload = { id: user._id, role: user.role, name: user.name };
+
+    let token = await jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY);
+
     res.status(200).json({
       message: "user logged in successfully",
       data: user,
+      token: token,
     });
   } catch (error) {
     res.status(500).json({

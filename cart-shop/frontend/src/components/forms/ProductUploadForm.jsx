@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import axiosInstance from "../../services/axiosInstance";
 
 export default function ProductUploadForm({ setProductList }) {
+  const sellerId = JSON.parse(sessionStorage.getItem("userDetail"))._id
+  console.log("seller id is ",sellerId)
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -12,7 +15,7 @@ export default function ProductUploadForm({ setProductList }) {
     stock: 1,
     description: "",
     features: "",
-    seller: "",
+    seller: sellerId,
   });
 
   const [poster, setPoster] = useState(null);
@@ -55,15 +58,15 @@ export default function ProductUploadForm({ setProductList }) {
         }
       }
 
-      let response = await axios.post(
-        "http://localhost:8080/api/product/create",
+      let response = await axiosInstance.post(
+        "/api/product/create",
         payload
       );
       let updatedData = response.data.data;
       setProductList((prev) => [...prev, updatedData]);
 
       toast.success("product uploaded successfully!");
-
+/// reset form data
       setFormData({
         name: "",
         price: "",
@@ -242,7 +245,7 @@ export default function ProductUploadForm({ setProductList }) {
       </div>
 
       {/* Seller */}
-      <div>
+      {/* <div>
         <label className="block mb-1 font-medium text-gray-700">
           Seller ID *
         </label>
@@ -254,7 +257,7 @@ export default function ProductUploadForm({ setProductList }) {
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-200"
         />
-      </div>
+      </div> */}
 
       {/* Submit */}
       <button

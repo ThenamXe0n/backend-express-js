@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
+import axiosInstance from "../services/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -35,34 +37,23 @@ export default function LoginPage() {
     console.log("Login Data:", data);
 
     try {
-      const response = await fetch("http://localhost:8080/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+      const response = await axiosInstance.post("/api/user/login", {
+        email: data.email,
+        password: data.password,
       });
 
-      const result = await response.json();
-      console.log("Login Response:", result.data);
-      
-      if (response.ok) {
-        sessionStorage.setItem("isLoggedIn", "cart-shop-logined");
-        sessionStorage.setItem("userDetail", JSON.stringify(result.data));
-        setShowSuccess(true);
-        setTimeout(() => {
-          // Redirect or handle successful login
-          console.log("Login successful:", result);
+      sessionStorage.setItem("isLoggedIn", "cart-shop-logined");
+      sessionStorage.setItem("userDetail", JSON.stringify(response.data.data));
+      sessionStorage.setItem("accessToken",response.data.accesstoken)
+      setShowSuccess(true);
+      setTimeout(() => {
+        // Redirect or handle successful login
+ 
 
-          navigate(routePath.HOME);
-        }, 2000);
-      } else {
-        setApiError(result.message || "Login failed. Please try again.");
-      }
+        navigate(routePath.HOME);
+      }, 2000);
     } catch (err) {
+      toast.error(err.message)
       setApiError("Unable to connect. Please check your connection.");
     }
   };

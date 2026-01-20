@@ -6,7 +6,7 @@ function VendorProtectedRouter({ children }) {
   const loggedInUserDetails = JSON.parse(sessionStorage.getItem("userDetail"));
   console.log("details are ==>", loggedInUserDetails.role);
 
-  if (loggedInUserDetails.role !== "vendor" || loggedInUserDetails.role !== "admin") {
+  if ( loggedInUserDetails.role !== "admin") {
     return (
       <UnauthorizedPage/>
     );
