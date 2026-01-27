@@ -44,16 +44,15 @@ export default function LoginPage() {
 
       sessionStorage.setItem("isLoggedIn", "cart-shop-logined");
       sessionStorage.setItem("userDetail", JSON.stringify(response.data.data));
-      sessionStorage.setItem("accessToken",response.data.accesstoken)
+      sessionStorage.setItem("accessToken", response.data.accesstoken);
       setShowSuccess(true);
       setTimeout(() => {
         // Redirect or handle successful login
- 
 
         navigate(routePath.HOME);
       }, 2000);
     } catch (err) {
-      toast.error(err.message)
+      toast.error(err.message);
       setApiError("Unable to connect. Please check your connection.");
     }
   };
@@ -189,12 +188,12 @@ export default function LoginPage() {
               />
               <span className="ml-2 text-sm text-gray-600">Remember me</span>
             </label>
-            <button
-              type="button"
+            <Link
+              to={routePath.FORGOT_PASSWORD}
               className="text-sm text-blue-600 hover:text-blue-700 font-semibold"
             >
               Forgot password?
-            </button>
+            </Link>
           </div>
 
           {/* Submit Button */}

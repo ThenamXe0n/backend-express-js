@@ -50,11 +50,14 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,
     timeseries: true,
-  }
+  },
 );
 
 const UserModel = model("RegisteredUser", UserSchema);

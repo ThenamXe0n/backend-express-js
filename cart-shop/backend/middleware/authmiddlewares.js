@@ -62,3 +62,20 @@ export const isVendor = async (req, res, next) => {
 //     });
 //   }
 // };
+
+export const isLoggedIn = async (req, res, next) => {
+  const token = req.cookies?.accesstoken;
+  try {
+    //  decode token
+    const decode = await jwt.verify(token, process.env.JWT_SCERET_KEY);
+    if (!decode) {
+      return res.status(404).json({ message: "invalid token or user not logged in" });
+    }
+    req.userId = decode._id;
+    next();
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

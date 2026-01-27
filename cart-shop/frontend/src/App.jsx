@@ -13,8 +13,19 @@ import { Toaster } from "react-hot-toast";
 import VendorProtectedRouter from "./routes/protectedRouters/VendorProtectedRouter";
 import AdminDashboard from "./pages/administration/AdminDashboard";
 import AdminProtectedRouter from "./routes/protectedRouters/AdminProtectedRouter";
+import { useEffect } from "react";
+import ForgotPassword from "./pages/authPages/ForgotPassword";
+import ResetPassword from "./pages/authPages/ResetPassword";
+import ProfileSettings from "./pages/ProfileSettings"
 
 function App() {
+
+  useEffect(()=>{
+    function meAPI(){
+      console.log("login")
+    }
+    meAPI()
+  },[])
   return (
     <>
       <NavBar />
@@ -25,6 +36,10 @@ function App() {
         <Route path={routePath.MYORDERS} element={<MyOrdersPage />} />
         <Route path={routePath.MYCART} element={<MyCart />} />
         <Route path={routePath.REGISTER} element={<RegisterPage />} />
+        <Route path={routePath.FORGOT_PASSWORD} element={<ForgotPassword />} />
+        <Route path={`${routePath.RESET_PASSWORD}/:token`} element={<ResetPassword />} />
+        <Route path={routePath.PROFILE_SETTINGS} element={<ProfileSettings/>}/>
+
       
         <Route
           path={routePath.ADDPRODUCT}

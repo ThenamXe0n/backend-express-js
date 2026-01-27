@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { User, Mail, Lock, ShieldCheck } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
+import axiosInstance from "../services/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function RegistrationForm() {
   const {
@@ -19,6 +21,7 @@ export default function RegistrationForm() {
     },
   });
 
+  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [apiError, setApiError] = useState("");
 
@@ -43,19 +46,14 @@ export default function RegistrationForm() {
         ],
       };
 
-      const res = await fetch("http://localhost:8080/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+      const res = await axiosInstance.post(
+        "http://localhost:8080/api/user/register",
+        payload,
+      );
 
-      if (!res.ok) {
-        const msg = await res.text();
-        throw new Error(msg || "Registration failed");
-      }
       setSuccess(true);
+      toast.success("you are registered successfully!");
+      navigate(routePath.LOGIN);
       reset();
     } catch (err) {
       setApiError(err.message || "Something went wrong");
