@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { User, Mail, Lock, ShieldCheck } from "lucide-react";
+import { User, Mail, Lock, ShieldCheck, ShoppingCart, UserRoundPlusIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
 import axiosInstance from "../services/axiosInstance";
@@ -63,15 +63,21 @@ export default function RegistrationForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white shadow-xl rounded-3xl border border-blue-100 p-8">
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-md">
-              <ShieldCheck className="text-white" />
+        <div className="bg-white  shadow-xl rounded-3xl border border-blue-100 overflow-hidden">
+          <div className="flex  flex-col items-center mb-6 bg-linear-to-br from-indigo-600 to-cyan-600 relative p-8 text-white">
+          <div className="flex items-center justify-center ">
+            <div className="bg-emerald-400 absolute top-0 right-0 rounded-bl-3xl rounded-tr-3xl  flex items-center justify-center gap-1  shadow-inner shadow-black/80 p-3 ">
+              <span className="font-bold capitalize">cart-shop</span>
+              <ShoppingCart className="w-8 rotate-12 h-6 text-white" />{" "}
             </div>
-            <h1 className="mt-3 text-2xl font-semibold text-blue-800 text-center">
+          </div>
+            <div className="w-12 h-12 rounded-2xl bg-white  flex items-center justify-center shadow-md">
+              <UserRoundPlusIcon size={28} className="text-blue-500 translate-x-0.5"  />
+            </div>
+            <h1 className="mt-3 text-2xl font-semibold  text-center">
               Create your account
             </h1>
-            <p className="text-sm text-slate-500 mt-1 text-center">
+            <p className="text-sm  mt-1 text-center">
               Join us to start shopping effortlessly
             </p>
           </div>
@@ -82,7 +88,7 @@ export default function RegistrationForm() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-9 pb-9">
             <input type="hidden" value="user" {...register("role")} />
 
             <div>
@@ -165,7 +171,7 @@ export default function RegistrationForm() {
               {isSubmitting ? "Creating account..." : "Sign up"}
             </button>
 
-            <p className="text-center text-xs text-slate-500 mt-2">
+            <p className="text-center text-sm md:text-lg text-slate-500 mt-2">
               Already have an account?{" "}
               <Link
                 to={routePath.LOGIN}

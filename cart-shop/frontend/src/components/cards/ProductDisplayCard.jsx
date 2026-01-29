@@ -1,15 +1,19 @@
 import { Heart } from "lucide-react";
 import React from "react";
+import { Link } from "react-router";
+import { routePath } from "../../routes/routePath";
 
 const ProductDisplayCard = ({
   img = "http://localhost:8080/uploads/img/poster-1767626090886.png",
   name = "mustang",
   price = 500,
   stock = 5,
+  mrp = 0,
   brand = "uniquo",
+  productCode
 }) => {
   return (
-    <div className="h-80 w-56 p-1 pb-4 shadow-2xl  shadow-black/50 rounded-lg">
+    <Link to={`${routePath.PRODUCT}/${brand}/${productCode}`} className="h-fit w-56 p-1 pb-4 shadow-2xl  shadow-black/50 rounded-lg">
       <div className="relative overflow-hidden h-[79%]   rounded-md">
         <img
           onError={(e) =>
@@ -34,14 +38,18 @@ const ProductDisplayCard = ({
         <h3 className="font-bold capitalize">{name}</h3>
         <div className="flex items-center justify-between">
           <span className="text-cyan-500 font-semibold text-xs">
-            ${price} save
+            ₹{mrp - price} save
           </span>
           {stock < 10 && (
             <span className="text-red-600 text-xs">only {stock} left</span>
           )}
         </div>
+        <div className="space-x-4">
+          <span className="text-lg font-bold">₹ {price}</span>
+          <span className="text-lg font-bold">₹ {mrp}</span>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

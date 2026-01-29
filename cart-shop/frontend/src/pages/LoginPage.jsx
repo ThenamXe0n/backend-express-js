@@ -7,6 +7,7 @@ import {
   Eye,
   EyeOff,
   CheckCircle,
+  KeySquare,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
@@ -75,7 +76,7 @@ export default function LoginPage() {
                 amazing shopping experience!
               </p>
               <div className="w-full bg-gray-200 rounded-full h-1 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-500 to-purple-600 animate-progress"></div>
+                <div className="h-full bg-linear-to-r from-blue-500 to-purple-600 animate-progress"></div>
               </div>
             </div>
           </div>
@@ -85,13 +86,16 @@ export default function LoginPage() {
       {/* Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-white rounded-full p-3 animate-bounce">
-              <ShoppingCart className="w-8 h-8 text-blue-600" />
+        <div className="bg-linear-to-br from-indigo-600 to-cyan-600 relative p-8 text-white">
+          <div className="flex items-center justify-center ">
+            <div className="bg-emerald-400 absolute top-0 right-0 rounded-bl-3xl rounded-tr-3xl  flex items-center justify-center gap-1  shadow-inner shadow-black/80 p-3 ">
+              <span className="font-bold capitalize">cart-shop</span>
+              <ShoppingCart className="w-8 rotate-12 h-6 text-white" />{" "}
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-center">Cart-Shop</h1>
+          <div className="text-3xl flex -translate-x-4 items-center justify-center gap-x-2.5 font-semibold text-center">
+            <KeySquare size={34} /> <span>Login</span>
+          </div>
           <p className="text-center text-blue-100 mt-2">
             Welcome back! Please login to continue
           </p>

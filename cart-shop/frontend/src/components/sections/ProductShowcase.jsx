@@ -3,32 +3,34 @@ import React, { useState } from "react";
 import ProductDisplayCard from "../cards/ProductDisplayCard";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { fetchALLProductAPI } from "../../services/apiCollection";
+import { fetchApprovedProductAPI} from "../../services/apiCollection";
+import { useSelector } from "react-redux";
 
 const activeStyle = "size-8 p-1 bg-white rounded-md text-cyan-400";
 const deActiveStyle = "size-8 p-1 ";
 
 const ProductShowcase = () => {
+  const {productList,totalProduct} = useSelector((state)=>state.products)
   const [layoutView, setLayoutView] = useState("list");
-  const [productList, setProductList] = useState([]);
 
-  async function loadProduct() {
-    try {
-      let dataToSet = await fetchALLProductAPI();
-      setProductList(dataToSet.data);
-      toast.success(dataToSet.message, {
-        position: "bottom-right",
-      });
-    } catch (error) {
-      toast.error(error.message, {
-        position: "bottom-right",
-      });
-    }
-  }
+  // async function loadProduct() {
+  //   try {
+  //     let dataToSet = await fetchApprovedProductAPI();
+  //     setProductList(dataToSet.data);
+  //     toast.success(dataToSet.message, {
+  //       position: "bottom-right",
+  //     });
+  //   } catch (error) {
+  //     toast.error(error.message, {
+  //       position: "bottom-right",
+  //     });
+  //   }
+  // }
 
-  useEffect(() => {
-    loadProduct();
-  }, []);
+  // useEffect(() => {
+
+  //   loadProduct();
+  // }, []);
 
   return (
     <div className="py-3 h-full">
@@ -59,7 +61,7 @@ const ProductShowcase = () => {
         <div className="grid gap-6 justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
           {Array.isArray(productList) &&
             productList.map((item, itemIdx) => (
-              <ProductDisplayCard key={itemIdx} stock={item.stock} brand={item.brand} img={item.thumbnail} name={item.name} price={item.price} />
+              <ProductDisplayCard productCode={item.productCode} mrp={item.mrp}  key={itemIdx} stock={item.stock} brand={item.brand} img={item.thumbnail} name={item.name} price={item.price}  />
             ))}
         </div>
       ) : (

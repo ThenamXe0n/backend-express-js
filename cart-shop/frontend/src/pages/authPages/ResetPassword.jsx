@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { routePath } from "../../routes/routePath";
-import { Mail, LockKeyholeIcon } from "lucide-react";
+import { Mail, LockKeyholeIcon, ShoppingCart } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import axiosInstance from "../../services/axiosInstance";
@@ -50,12 +50,18 @@ function ResetPassword() {
       {/* Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-white rounded-full p-3 animate-bounce">
-              <LockKeyholeIcon className="w-8 h-8 text-blue-600" />
+        <div className="bg-gradient-to-br relative from-blue-600 to-cyan-600 pt-16 pb-3 text-white">
+        <div className="flex items-center justify-center ">
+            <div className="bg-emerald-400 absolute top-0 right-0 rounded-bl-3xl rounded-tr-3xl  flex items-center justify-center gap-1  shadow-inner shadow-black/80 p-3 ">
+              <span className="font-bold capitalize">cart-shop</span>
+              <ShoppingCart className="w-8 rotate-12 h-6 text-white" />{" "}
             </div>
           </div>
+          {/* <div className="flex items-center justify-center mb-4">
+            <div className="bg-white rounded-md p-3 animate-bounce">
+              <LockKeyholeIcon className="w-8 h-8 text-blue-600" />
+            </div>
+          </div> */}
           <h1 className="text-3xl font-bold text-center">Reset Password</h1>
           <p className="text-center text-blue-100 mt-2">Enter new Password !</p>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { routePath } from "../../routes/routePath";
 import { Mail, LockKeyholeIcon } from "lucide-react";
-import { Link} from "react-router";
+import { Link } from "react-router";
 import toast from "react-hot-toast";
 import axiosInstance from "../../services/axiosInstance";
 
@@ -11,7 +11,7 @@ function ChangePassword() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset
+    reset,
   } = useForm();
 
   async function handleChangePassword(data) {
@@ -29,7 +29,7 @@ function ChangePassword() {
 
       if (response.data.status) {
         toast.success(response.data.message);
-        reset()
+        reset();
       }
     } catch (error) {
       toast.error(error.message);
@@ -44,14 +44,16 @@ function ChangePassword() {
       {/* Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-white rounded-full p-3 animate-bounce">
+           <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-8 text-white">
+          {/* <div className="flex items-center justify-center mb-4">
+            <div className="bg-white rounded-lg p-3 ">
               <LockKeyholeIcon className="w-8 h-8 text-blue-600" />
             </div>
-          </div>
-          <h1 className="text-3xl font-bold text-center">change Password</h1>
-          <p className="text-center text-blue-100 mt-2">Enter new Password !</p>
+          </div> */}
+          <h1 className="text-3xl font-bold text-center">Change Password</h1>
+          {/* <p className="text-center text-green-200 mt-2">
+            Enter Email to get a Reset Password code on email !
+          </p> */}
         </div>
 
         {/* Form */}
@@ -167,12 +169,12 @@ function ChangePassword() {
 
           {/* Sign Up Link */}
           <p className="text-center text-gray-600 text-sm mt-6">
-            Don't have an account?{" "}
+            Forgotten old password?{" "}
             <Link
-              to={routePath.REGISTER}
+              to={routePath.FORGOT_PASSWORD}
               className="text-blue-600 hover:text-blue-700 font-semibold"
             >
-              Sign up now
+              generate password reset link
             </Link>
           </p>
         </div>

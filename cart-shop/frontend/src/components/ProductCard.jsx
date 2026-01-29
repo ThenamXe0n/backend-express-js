@@ -8,7 +8,7 @@ export default function ProductCard({
   onBuy,
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 w-64 hover:shadow-md transition">
+    <div className="bg-white border h-96 border-gray-200 rounded-xl shadow-sm p-4 w-64 hover:shadow-md transition">
       {/* Image */}
       <div className="w-full h-36 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
         <img

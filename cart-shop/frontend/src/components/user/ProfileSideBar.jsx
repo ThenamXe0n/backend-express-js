@@ -9,6 +9,10 @@ const menuItems = [
 ];
 
 export default function ProfileSideBar({ user,active,setActive }) {
+  const handleTabChange = (key) => {
+    setActive(key);
+    sessionStorage.setItem("activeTab", key);
+  }
   
 
   return (
@@ -38,7 +42,7 @@ export default function ProfileSideBar({ user,active,setActive }) {
         {menuItems.map((item) => (
           <button
             key={item.key}
-            onClick={() => setActive(item.key)}
+            onClick={()=>handleTabChange(item.key)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition
               ${
                 active === item.key

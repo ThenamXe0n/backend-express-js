@@ -40,15 +40,15 @@ function ForgotPassword() {
       {/* Login Card */}
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-white rounded-full p-3 animate-bounce">
+        <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-8 text-white">
+          {/* <div className="flex items-center justify-center mb-4">
+            <div className="bg-white rounded-lg p-3 ">
               <LockKeyholeIcon className="w-8 h-8 text-blue-600" />
             </div>
-          </div>
+          </div> */}
           <h1 className="text-3xl font-bold text-center">Forgot Password</h1>
-          <p className="text-center text-blue-100 mt-2">
-            Enter Email to Reset Password !
+          <p className="text-center text-green-200 mt-2">
+            Enter Email to get a Reset Password code on email !
           </p>
         </div>
 
