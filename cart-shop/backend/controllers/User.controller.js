@@ -59,7 +59,7 @@ export const loginUser = async (req, res) => {
     let AccessToken = await jwt.sign(
       responseToSend,
       process.env.JWT_SCERET_KEY,
-      { expiresIn: "15m" },
+      { expiresIn: "7d" },
     );
 
     let refreshToken = await jwt.sign(
@@ -265,6 +265,51 @@ export const changePassword = async (req, res) => {
     res.status(200).json({
       status: true,
       message: "password changed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getLoggedInUserDetails = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const logginUser = await UserModel.findById(userId).select(
+      "-password -refreshToken",
+    );
+    if (!logginUser) {
+      return res.status(404).json({
+        status: false,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      status: true,
+      data: logginUser,
+      message: "logged in user details fetched successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
+};
+
+export const updateuserDetails = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const updateData = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    }).select("-password -refreshToken");
+    res.status(200).json({
+      status: true,
+      data: updatedUser,
+      message: "User details updated successfully",
     });
   } catch (error) {
     res.status(500).json({

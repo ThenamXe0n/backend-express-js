@@ -20,8 +20,8 @@ export async function addProduct(req, res) {
         new ApiResponse(
           true,
           "Product posted successfully, wait for approval by admin",
-          product
-        )
+          product,
+        ),
       );
   } catch (error) {
     res.status(500).json(new ApiResponse(false, error.message));
@@ -32,7 +32,7 @@ export async function getAllProducts(req, res) {
   try {
     const allProducts = await ProductModel.find().populate(
       "seller",
-      "name address email"
+      "name address email",
     );
     if (allProducts.length < 1) {
       res.status(404).json({
@@ -45,7 +45,34 @@ export async function getAllProducts(req, res) {
       message: "All products loaded..",
       data: allProducts,
     });
-  } catch {
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      data: null,
+    });
+  }
+}
+
+// public
+export async function getApprovedProducts(req, res) {
+  try {
+    const allProducts = await ProductModel.find({ isApproved: true }).populate(
+      "seller",
+      "name address email",
+    );
+    if (allProducts.length < 1) {
+      res.status(404).json({
+        message: "no product available to show",
+        data: allProducts,
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "All products loaded..",
+      data: allProducts,
+      total: allProducts.length,
+    });
+  } catch (error) {
     res.status(500).json({
       message: error.message,
       data: null,
@@ -57,12 +84,14 @@ export async function getAllProducts(req, res) {
 
 export async function updateProductDetails(req, res) {
   // let payload = req.body;
-  let id = req.params.id
-  console.log(id)
+  let id = req.params.id;
+  console.log(id);
   // console.log("parms are",req.params.productId)
 
   try {
-    let updatedProduct = await ProductModel.findByIdAndUpdate(id, req.body,{new:true});
+    let updatedProduct = await ProductModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     res
       .status(200)
       .json(new ApiResponse(true, "product updated!", updatedProduct));
@@ -74,11 +103,15 @@ export async function updateProductDetails(req, res) {
 //soft delete
 export async function deleteProductTemp(req, res) {
   // let payload = req.body;
-  let id = req.params.id
+  let id = req.params.id;
   // console.log("parms are",req.params.productId)
 
   try {
-    let deletedProduct = await ProductModel.findByIdAndUpdate(id,{isDeleted:true},{new:true});
+    let deletedProduct = await ProductModel.findByIdAndUpdate(
+      id,
+      { isDeleted: true },
+      { new: true },
+    );
     res
       .status(200)
       .json(new ApiResponse(true, "product moved to trash!", deletedProduct));
@@ -89,8 +122,8 @@ export async function deleteProductTemp(req, res) {
 //hard delete
 export async function deleteProduct(req, res) {
   // let payload = req.body;
-  let id = req.params.id
-  console.log(id)
+  let id = req.params.id;
+  console.log(id);
   // console.log("parms are",req.params.productId)
 
   try {

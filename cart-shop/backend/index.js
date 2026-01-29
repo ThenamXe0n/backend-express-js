@@ -23,7 +23,7 @@ app.use(
 );
 
 //api routes
-app.get("/", isVendor, (req, res) => {
+app.get("/", (req, res) => {
   res.send("<h1>server is live</h1>");
 });
 app.use("/api", ApiRouter);
