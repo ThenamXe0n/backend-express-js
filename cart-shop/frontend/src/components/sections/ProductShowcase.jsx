@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { fetchApprovedProductAPI} from "../../services/apiCollection";
 import { useSelector } from "react-redux";
+import ProductCard from "../ProductCard";
 
 const activeStyle = "size-8 p-1 bg-white rounded-md text-cyan-400";
 const deActiveStyle = "size-8 p-1 ";
@@ -58,10 +59,10 @@ const ProductShowcase = () => {
 
       {/* product list section  */}
       {productList?.length > 0 ? (
-        <div className="grid gap-6 justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
+        <div className="grid gap-10 max-w-7xl justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
           {Array.isArray(productList) &&
             productList.map((item, itemIdx) => (
-              <ProductDisplayCard productCode={item.productCode} mrp={item.mrp}  key={itemIdx} stock={item.stock} brand={item.brand} img={item.thumbnail} name={item.name} price={item.price}  />
+              <ProductCard key={itemIdx} product={item}  />
             ))}
         </div>
       ) : (

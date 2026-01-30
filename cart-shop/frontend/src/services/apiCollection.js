@@ -33,6 +33,18 @@ export async function fetchApprovedProductAPI() {
     throw new Error(error);
   }
 }
+
+export async function fetchSingleProductByProductCodeAPI(productCode) {
+  try {
+    const response = await axiosInstance.get(
+      `${apiPaths.fetchSingleProductByProductCode}${productCode}`,
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 //--post--
 
 // ========================= user APIS =========================

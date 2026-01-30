@@ -1,24 +1,25 @@
-import "dotenv/config";
+import "dotenv/config"
 import mongoose from "mongoose";
 import Product from "./models/product.model.js"; // Adjust the path to your Product model
 
 // Sample seller IDs - Replace these with actual ObjectIds from your RegisteredUser collection
-// You can get these by querying your database or creating sample users firste
+// You can get these by querying your database or creating sample users first
 export const SAMPLE_SELLER_IDS = [
-  "6978c6d242d6d8209c898f6b",
-  "697913aee301b277c1625db8",
-  "69749808610ddb05cde5794b",
+  "507f1f77bcf86cd799439011",
+  "507f1f77bcf86cd799439012",
+  "507f1f77bcf86cd799439013",
 ];
 
 export const sampleProducts = [
   {
     name: "samsung galaxy s23 ultra",
     productCode: "SMSG-S23U-001",
-    thumbnail: "http://localhost:8080/upload/assets/samsung-s23-ultra.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/samsung-s23-ultra-1.png",
-      "http://localhost:8080/upload/assets/samsung-s23-ultra-2.png",
-      "http://localhost:8080/upload/assets/samsung-s23-ultra-3.png",
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800&q=80",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80",
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&q=80",
     ],
     price: 89999,
     mrp: 124999,
@@ -43,10 +44,11 @@ export const sampleProducts = [
   {
     name: 'apple macbook pro 14"',
     productCode: "APPL-MBP14-001",
-    thumbnail: "http://localhost:8080/upload/assets/macbook-pro-14.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/macbook-pro-14-1.png",
-      "http://localhost:8080/upload/assets/macbook-pro-14-2.png",
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80",
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80",
     ],
     price: 169900,
     mrp: 199900,
@@ -71,10 +73,11 @@ export const sampleProducts = [
   {
     name: "sony wh-1000xm5 wireless headphones",
     productCode: "SONY-WH1000XM5-001",
-    thumbnail: "http://localhost:8080/upload/assets/sony-wh1000xm5.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/sony-wh1000xm5-1.png",
-      "http://localhost:8080/upload/assets/sony-wh1000xm5-2.png",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&q=80",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
     ],
     price: 24990,
     mrp: 29990,
@@ -98,8 +101,11 @@ export const sampleProducts = [
   {
     name: "logitech mx master 3s wireless mouse",
     productCode: "LOGI-MXM3S-001",
-    thumbnail: "http://localhost:8080/upload/assets/logitech-mx-master-3s.png",
-    images: ["http://localhost:8080/upload/assets/logitech-mx-master-3s-1.png"],
+    thumbnail:
+      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=800&q=80",
+    ],
     price: 8495,
     mrp: 10995,
     brand: "logitech",
@@ -122,10 +128,11 @@ export const sampleProducts = [
   {
     name: 'dell ultrasharp 27" 4k monitor',
     productCode: "DELL-U2723DE-001",
-    thumbnail: "http://localhost:8080/upload/assets/dell-ultrasharp-27.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/dell-ultrasharp-27-1.png",
-      "http://localhost:8080/upload/assets/dell-ultrasharp-27-2.png",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80",
+      "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=800&q=80",
     ],
     price: 45999,
     mrp: 52999,
@@ -150,10 +157,11 @@ export const sampleProducts = [
   {
     name: "nintendo switch oled",
     productCode: "NINT-SWOLED-001",
-    thumbnail: "http://localhost:8080/upload/assets/nintendo-switch-oled.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/nintendo-switch-oled-1.png",
-      "http://localhost:8080/upload/assets/nintendo-switch-oled-2.png",
+      "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=800&q=80",
+      "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=800&q=80",
     ],
     price: 29999,
     mrp: 34999,
@@ -177,11 +185,12 @@ export const sampleProducts = [
   {
     name: "canon eos r6 mark ii mirrorless camera",
     productCode: "CANON-R6M2-001",
-    thumbnail: "http://localhost:8080/upload/assets/canon-eos-r6-ii.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1606980707095-f2f4f74945f3?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/canon-eos-r6-ii-1.png",
-      "http://localhost:8080/upload/assets/canon-eos-r6-ii-2.png",
-      "http://localhost:8080/upload/assets/canon-eos-r6-ii-3.png",
+      "https://images.unsplash.com/photo-1606980707095-f2f4f74945f3?w=800&q=80",
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80",
+      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&q=80",
     ],
     price: 224990,
     mrp: 249990,
@@ -206,8 +215,11 @@ export const sampleProducts = [
   {
     name: 'samsung 55" neo qled 4k smart tv',
     productCode: "SMSG-QN55-001",
-    thumbnail: "http://localhost:8080/upload/assets/samsung-neo-qled-55.png",
-    images: ["http://localhost:8080/upload/assets/samsung-neo-qled-55-1.png"],
+    thumbnail:
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=800&q=80",
+    ],
     price: 84990,
     mrp: 119990,
     brand: "samsung",
@@ -231,10 +243,11 @@ export const sampleProducts = [
   {
     name: "dyson v15 detect cordless vacuum",
     productCode: "DYSN-V15D-001",
-    thumbnail: "http://localhost:8080/upload/assets/dyson-v15-detect.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/dyson-v15-detect-1.png",
-      "http://localhost:8080/upload/assets/dyson-v15-detect-2.png",
+      "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=800&q=80",
+      "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=800&q=80",
     ],
     price: 54900,
     mrp: 64900,
@@ -258,8 +271,11 @@ export const sampleProducts = [
   {
     name: "keychron k8 pro mechanical keyboard",
     productCode: "KEYCH-K8PRO-001",
-    thumbnail: "http://localhost:8080/upload/assets/keychron-k8-pro.png",
-    images: ["http://localhost:8080/upload/assets/keychron-k8-pro-1.png"],
+    thumbnail:
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&q=80",
+    ],
     price: 9999,
     mrp: 12999,
     brand: "keychron",
@@ -283,10 +299,11 @@ export const sampleProducts = [
   {
     name: "bose soundlink revolve+ bluetooth speaker",
     productCode: "BOSE-SLR+-001",
-    thumbnail: "http://localhost:8080/upload/assets/bose-soundlink-revolve.png",
+    thumbnail:
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80",
     images: [
-      "http://localhost:8080/upload/assets/bose-soundlink-revolve-1.png",
-      "http://localhost:8080/upload/assets/bose-soundlink-revolve-2.png",
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&q=80",
     ],
     price: 22900,
     mrp: 29900,
@@ -311,8 +328,11 @@ export const sampleProducts = [
   {
     name: "fitbit charge 6 fitness tracker",
     productCode: "FITB-CHG6-001",
-    thumbnail: "http://localhost:8080/upload/assets/fitbit-charge-6.png",
-    images: ["http://localhost:8080/upload/assets/fitbit-charge-6-1.png"],
+    thumbnail:
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&q=80",
+    ],
     price: 12999,
     mrp: 15999,
     brand: "fitbit",
@@ -334,9 +354,9 @@ export const sampleProducts = [
   },
 ];
 
-console.log("connection string", process.env.MONGODB_URL);
 // Database connection configuration
-const MONGODB_URI = process.env.MONGODB_URL;
+const MONGODB_URI =
+  process.env.MONGODB_URL || "mongodb://localhost:27017/your-database-name";
 
 /**
  * Seed the database with sample product data
@@ -387,3 +407,5 @@ async function seedDatabase() {
 
 // Run the seed function
 seedDatabase();
+
+

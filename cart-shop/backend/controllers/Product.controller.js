@@ -56,10 +56,10 @@ export async function getAllProducts(req, res) {
 // public
 export async function getApprovedProducts(req, res) {
   try {
-    const allProducts = await ProductModel.find({ isApproved: true }).populate(
-      "seller",
-      "name address email",
-    );
+    const allProducts = await ProductModel.find({
+      isApproved: true,
+      isDeleted: false,
+    }).populate("seller", "name address email");
     if (allProducts.length < 1) {
       res.status(404).json({
         message: "no product available to show",
@@ -136,5 +136,27 @@ export async function deleteProduct(req, res) {
   }
 }
 //admin access getall
+
+export async function getSingleProductByProductCode(req, res) {
+  const { productCode } = req.params;
+  try {
+    const product = await ProductModel.findOne({ productCode });
+    if (!product) {
+      res.status(404).json({
+        status: false,
+        message: "product not found!!",
+        data: {},
+      });
+      return;
+    }
+    res.status(200).json({
+      status: true,
+      message: "product details fetched successfully!",
+      data: product,
+    });
+  } catch (error) {
+    res.status(500).json({ status: false, message: error.message });
+  }
+}
 
 //admin access update
