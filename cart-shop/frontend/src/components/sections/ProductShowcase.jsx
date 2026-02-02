@@ -1,18 +1,16 @@
-import { LayoutGrid, Rows2 } from "lucide-react";
+
 import React, { useState } from "react";
 import ProductDisplayCard from "../cards/ProductDisplayCard";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { fetchApprovedProductAPI} from "../../services/apiCollection";
+import { fetchApprovedProductAPI } from "../../services/apiCollection";
 import { useSelector } from "react-redux";
 import ProductCard from "../ProductCard";
-
-const activeStyle = "size-8 p-1 bg-white rounded-md text-cyan-400";
-const deActiveStyle = "size-8 p-1 ";
+import ProductHeader from "../headers/ProductHeader";
 
 const ProductShowcase = () => {
-  const {productList,totalProduct} = useSelector((state)=>state.products)
-  const [layoutView, setLayoutView] = useState("list");
+  const { productList, totalProduct } = useSelector((state) => state.products);
+  // const [layoutView, setLayoutView] = useState("list");
 
   // async function loadProduct() {
   //   try {
@@ -36,33 +34,14 @@ const ProductShowcase = () => {
   return (
     <div className="py-3 h-full">
       {/* header */}
-      <div className="w-full border-b border-gray-300 mb-3 pb-3 bg-white z-50 sticky top-0 flex px-5 items-center justify-between">
-        <div className="w-fit flex py-2 px-2 bg-gray-300/80 rounded-md">
-          <div
-            onClick={() => setLayoutView("grid")}
-            className={layoutView === "grid" ? activeStyle : deActiveStyle}
-          >
-            <LayoutGrid />
-          </div>
-          <div
-            onClick={() => setLayoutView("list")}
-            className={layoutView !== "grid" ? activeStyle : deActiveStyle}
-          >
-            <Rows2 />
-          </div>
-        </div>
-
-        <div className=" bg-gray-300/80 rounded-md px-5 py-2 capitalize font-bold">
-          sorted by : <span className="text-cyan-400">Popular</span>{" "}
-        </div>
-      </div>
+      <ProductHeader />
 
       {/* product list section  */}
       {productList?.length > 0 ? (
         <div className="grid gap-10 max-w-7xl justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
           {Array.isArray(productList) &&
             productList.map((item, itemIdx) => (
-              <ProductCard key={itemIdx} product={item}  />
+              <ProductCard key={itemIdx} product={item} />
             ))}
         </div>
       ) : (

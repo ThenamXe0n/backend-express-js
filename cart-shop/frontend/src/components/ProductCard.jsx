@@ -13,7 +13,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <img
           src={product.thumbnail}
           alt={product.name}
-          className="h-56 w-full object-contain transition-transform duration-300 group-hover:scale-105"
+          className="h-56 w-full object-fill transition-transform duration-300 group-hover:scale-105"
         />
 
         {/* Discount badge */}

@@ -15,22 +15,27 @@ function ProductDetailPage() {
   const featuresHeading = Object.keys(selectedProduct?.features || {});
   useEffect(() => {
     dispatch(fetchSingleProductByProductCodeAsync(params.productCode));
-  }, [dispatch, params.productCode]);
+  }, [dispatch, params.productCode, pathname]);
 
   return (
     <>
       {isLoading ? (
         <CardLoader />
       ) : (
-        <div>
+        <div className="w-11/12 mx-auto">
           <BreadCrumbs path={pathname} />
-          <section className="flex md:flex-row flex-col gap-5 w-11/12 mx-auto ">
-            <div className="md:h-[70vh] gap-3 grid grid-cols-4 grid-rows-4 border border-red-600 h-[50vh] w-full md:w-1/2 mx-auto">
-              {selectedProduct.images.map((img, idx) => (
-                <div key={idx} className="h-full w-full bg-black ">
-                  <img src={img} alt="images" />
-                </div>
-              ))}
+          <section className="flex md:flex-row flex-col gap-5  ">
+            <div className="md:h-[70vh] gap-2 grid grid-cols-4 grid-rows-4  h-[50vh] w-full md:w-1/2 mx-auto">
+              <div className="grid-rows-4 grid gap-y-2  row-span-4 col-span-1">
+                {selectedProduct.images.map((img, idx) => (
+                  <div key={idx} className="h-full w-full bg-black ">
+                    <img src={img} alt="images" className="object-cover h-full w-ful" />
+                  </div>
+                ))}
+              </div>
+              <div className="col-span-3 row-span-4 h-full w-full">
+                <img src={selectedProduct.thumbnail} className="h-full w-full" alt="images" />
+              </div>
             </div>
             <div className="flex-1 space-y-4 ">
               <h1 className="font-bold text-2xl capitalize">
@@ -61,7 +66,9 @@ function ProductDetailPage() {
                 <tbody>
                   <tr>
                     {featuresHeading.map((heading, idx) => (
-                      <td className="border-2 border-black p-3" key={idx}>{selectedProduct.features[heading]}</td>
+                      <td className="border-2 border-black p-3" key={idx}>
+                        {selectedProduct.features[heading]}
+                      </td>
                     ))}
                   </tr>
                 </tbody>
