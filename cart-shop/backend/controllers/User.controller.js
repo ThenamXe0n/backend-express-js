@@ -318,3 +318,17 @@ export const updateuserDetails = async (req, res) => {
     });
   }
 };
+
+export const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("accesstoken", {
+      sameSite: "Lax", //local Lax, None
+      httpOnly: true,
+      secure: false, // http = > false , https ==> true
+      maxAge: 4 * 24 * 60 * 60 * 1000,
+    });
+    res.json({ message: "logged out " });
+  } catch (error) {
+    res.status(500).json({ message: error.messsage });
+  }
+};

@@ -20,11 +20,13 @@ import ProfileSettings from "./pages/ProfileSettings";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import { useDispatch } from "react-redux";
 import { fetchApprovedProductAsync } from "./redux/productSlice";
+import { getUserCartItemsAsync } from "./redux/cartSlice";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchApprovedProductAsync());
+    dispatch(getUserCartItemsAsync());
     // function meAPI(){
     //   console.log("login")
     // }

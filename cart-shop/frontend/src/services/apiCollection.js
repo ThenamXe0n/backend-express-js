@@ -61,3 +61,26 @@ export async function fetchLoggedInUserDetailsAPI() {
     throw new Error(error);
   }
 }
+
+// ================================cart api=========================
+export async function addItemToCartAPI(itemDetails) {
+  try {
+    const response = await axiosInstance.post(apiPaths.cartEndPoint, {
+      item: itemDetails._id,
+      quantity: itemDetails.qunatity,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+export async function getUserCartItemsAPI() {
+  try {
+    const response = await axiosInstance.get(apiPaths.cartEndPoint);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+

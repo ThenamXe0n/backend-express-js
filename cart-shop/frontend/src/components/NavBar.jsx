@@ -14,8 +14,10 @@ import {
 import { Link, useLocation, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
+  const {totalItem} = useSelector((state) => state.myCart);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const loggedInUserDetails = JSON.parse(sessionStorage.getItem("userDetail"));
@@ -60,13 +62,18 @@ export default function NavBar() {
     setShowUserMenu(false);
     navigate(routePath.ADDPRODUCT);
   };
-  const NavLink = ({ icon: Icon, text, href = "#" }) => (
+  const NavLink = ({ icon: Icon, text, href = "#", stats }) => (
     <Link
       to={href}
-      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
+      className="flex relative items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
     >
       <Icon className="w-5 h-5" />
       <span>{text}</span>
+      {stats && (
+        <div className="size-5 absolute right-0 -top-2 rounded-md text-sm flex items-cneter justify-center bg-indigo-600 text-white">
+          {stats}
+        </div>
+      )}
     </Link>
   );
 
@@ -100,6 +107,7 @@ export default function NavBar() {
             <NavLink
               icon={ShoppingCart}
               text="My Cart"
+              stats={totalItem || 0}
               href={routePath.MYCART}
             />
           </div>
@@ -147,7 +155,10 @@ export default function NavBar() {
                         add products
                       </button>
                     )}
-                    <Link to={routePath.PROFILE_SETTINGS} className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium">
+                    <Link
+                      to={routePath.PROFILE_SETTINGS}
+                      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium"
+                    >
                       <Settings2Icon /> <span>profile settings</span>
                     </Link>
                     <button
