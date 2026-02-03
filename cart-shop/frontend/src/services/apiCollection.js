@@ -1,12 +1,24 @@
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
 import { apiPaths } from "./apiEndPoints";
+import toast from "react-hot-toast";
+import { routePath } from "../routes/routePath";
 export async function getAllProductsAPI() {
   try {
     let response = await axios.get("http://loca/api/product/getAll");
     let data = response.data.data;
     console.log(data);
     return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function logoutuserAPI() {
+  try {
+    const response = await axiosInstance.get(apiPaths.logout);
+    toast.success("user logged out!");
+    window.location.replace(routePath.LOGIN)
   } catch (error) {
     throw new Error(error);
   }
@@ -82,5 +94,3 @@ export async function getUserCartItemsAPI() {
     throw new Error(error);
   }
 }
-
-

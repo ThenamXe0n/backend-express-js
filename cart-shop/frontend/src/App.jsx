@@ -21,6 +21,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import { useDispatch } from "react-redux";
 import { fetchApprovedProductAsync } from "./redux/productSlice";
 import { getUserCartItemsAsync } from "./redux/cartSlice";
+import HomePage from "./pages/HomePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path={routePath.HOME} element={<h1>Home</h1>} />
+        <Route path={routePath.HOME} element={<HomePage />} />
         <Route path={routePath.LOGIN} element={<LoginPage />} />
         <Route path={routePath.PRODUCT} element={<ProductPage />} />
         <Route path={routePath.MYORDERS} element={<MyOrdersPage />} />

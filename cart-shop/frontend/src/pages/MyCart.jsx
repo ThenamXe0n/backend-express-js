@@ -50,19 +50,7 @@ const MyCart = () => {
             </tbody>
           </table>
         </div>
-        <div className="flex-1  p-4 h-fit space-y-4 rounded-3xl bg-slate-100 border-3 border-gray-100 ">
-          <div className="font-medium">Promo code</div>
-          <div className="border border-gray-300 p-1 flex  rounded-full w-full">
-            <input
-              placeholder="type code here..."
-              className="w-4/6 p-2 rounded-full outline-none"
-            />
-            <button className="bg-black text-center flex-1 rounded-full text-white">
-              Apply
-            </button>
-          </div>
-          <hr className="border-gray-300 mt-6" />
-        </div>
+        <SubTotalSection />
       </div>
     </section>
   );
@@ -111,11 +99,43 @@ const ItemTile = ({ poster, category, name, quantity, price, id }) => {
           </button>
         </div>
       </td>
-      <td className="font-bold text-lg">₹ {price}</td>
+      <td className="font-bold text-lg">₹ {price * qty}</td>
       <td>
         <X className="cursor-pointer" onClick={handleremoveItem} color="red" />
       </td>
     </tr>
+  );
+};
+
+const SubTotalSection = ({ discount=100, subtotal=2000 }) => {
+  return (
+    <div className="flex-1 p-4 h-fit space-y-4 rounded-3xl bg-slate-100 border-3 border-gray-100 ">
+      <div className="font-medium">Promo code</div>
+      <div className="border border-gray-300 p-1 flex  rounded-full w-full">
+        <input
+          placeholder="type code here..."
+          className="w-4/6 p-2 rounded-full outline-none"
+        />
+        <button className="bg-black text-center flex-1 rounded-full text-white">
+          Apply
+        </button>
+      </div>
+      <hr className="border-gray-300 mt-6" />
+      <table className="w-11/12 mx-auto capitalize">
+        <tr>
+          <td className="text-neutral-500 py-2">sub total</td>
+          <td className="text-right">₹ {subtotal}</td>
+        </tr>
+        <tr>
+          <td className="text-neutral-500 py-2">Discount</td>
+          <td className="text-right">₹ {discount}</td>
+        </tr>
+        <tr>
+          <td className="text-neutral-500 py-2">Total</td>
+          <td className="text-right">₹ {subtotal - discount}</td>
+        </tr>
+      </table>
+    </div>
   );
 };
 

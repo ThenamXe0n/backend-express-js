@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import ProductDisplayCard from "../cards/ProductDisplayCard";
 import { useEffect } from "react";
@@ -32,13 +31,13 @@ const ProductShowcase = () => {
   // }, []);
 
   return (
-    <div className="py-3 h-full">
+    <div className="py-3  h-full">
       {/* header */}
       <ProductHeader />
 
       {/* product list section  */}
       {productList?.length > 0 ? (
-        <div className="grid gap-10 max-w-7xl justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
+        <div className="grid gap-10  md:w-full justify-items-center grid-cols-1 h-full overflow-scroll  sm:grid-cols-2 md:grid-cols-4 ">
           {Array.isArray(productList) &&
             productList.map((item, itemIdx) => (
               <ProductCard key={itemIdx} product={item} />

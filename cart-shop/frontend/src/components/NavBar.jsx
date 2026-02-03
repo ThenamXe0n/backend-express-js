@@ -15,6 +15,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { routePath } from "../routes/routePath";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import {  logoutuserAPI } from "../services/apiCollection";
 
 export default function NavBar() {
   const {totalItem} = useSelector((state) => state.myCart);
@@ -50,6 +51,7 @@ export default function NavBar() {
       setIsLoggedIn(false);
       setUserDetails(null);
       setShowUserMenu(false);
+      logoutuserAPI()
       toast.success("user logged out!!");
     } else {
       toast.success("logout cancelled !");
