@@ -1,39 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import { BreadCrumbs } from "../components/ui/microUiComponent";
 import { useLocation } from "react-router";
-import { ShoppingCart, X } from "lucide-react";
+import { Minus, Plus, ShoppingCart, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import CartItemTable from "../components/tables/CartItemTable";
 
 const MyCart = () => {
   const { pathname } = useLocation();
-  const { cartItems, isLoading, totalItems } = useSelector(
+  const { cartItems, isLoading, totalItem } = useSelector(
     (state) => state.myCart,
   );
   return (
     <section className="max-w-7xl mx-auto">
       <BreadCrumbs path={pathname} />
-      <div className="w-full p-3 rounded-md border-3 ">
-        <div className="flex justify-between items-center">
-          <div>
-            <span className="text-2xl font-bold">Cart</span>{" "}
-            <span className="text-sm text-neutral-400">
-              (product {totalItems})
-            </span>{" "}
+      <div className="flex gap-8 w-full ">
+        <div className="w-4/6 p-8 rounded-3xl border-3 border-gray-200 ">
+          <div className="flex justify-between items-center">
+            <div className="space-x-2">
+              <span className="text-2xl font-semibold">Cart</span>{" "}
+              <span className="text-md text-neutral-400">
+                ( product {totalItem} )
+              </span>
+            </div>
+            <div className="flex items-center font-medium cursor-pointer gap-1 capitalize text-red-500">
+              <X size={20} /> clear carts
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-red-500">
-            <X /> clear items
+          <table className="w-full">
+            <thead>
+              <tr className="text-left">
+                <th className="p-4">product</th>
+                <th className="p-4">quantity</th>
+                <th className="p-4">price</th>
+                <th className="p-4">action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item, idx) => (
+                <ItemTile
+                  poster={item?.item?.thumbnail}
+                  price={item?.item?.price}
+                  name={item?.item?.name}
+                  category={item?.item?.category}
+                  quantity={item.quantity}
+                  id={item._id}
+                  key={idx}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex-1  p-4 h-fit space-y-4 rounded-3xl bg-slate-100 border-3 border-gray-100 ">
+          <div className="font-medium">Promo code</div>
+          <div className="border border-gray-300 p-1 flex  rounded-full w-full">
+            <input
+              placeholder="type code here..."
+              className="w-4/6 p-2 rounded-full outline-none"
+            />
+            <button className="bg-black text-center flex-1 rounded-full text-white">
+              Apply
+            </button>
           </div>
-        </div>
-        <div className="flex items-center justify-around w-full font-medium text-2xl mt-3">
-          <span>product</span>
-          <span>quantity</span>
-          <span>price</span>
-        </div>
-        <div className="space-y-2">
-          {cartItems.map((item, idx) => (
-            <ItemTile poster={item?.item?.thumbnail} price={item?.item?.price} name={item?.item?.name} category={item?.item?.category} quantity={item.quantity} id={item._id}   key={idx} />
-          ))}
+          <hr className="border-gray-300 mt-6" />
         </div>
       </div>
     </section>
@@ -41,32 +69,53 @@ const MyCart = () => {
 };
 
 const ItemTile = ({ poster, category, name, quantity, price, id }) => {
+  const [qty, setQty] = useState(quantity);
   const handleremoveItem = () => {
     console.log(id);
   };
   return (
-    <div className="border border-gray-200 my-2 rounded-md p-2 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div className="size-16 bg-gray-200 rounded-md overflow-hidden">
-          <img src={poster} alt={name} className="h-full w-full object-cover" />
+    <tr className="border border-gray-200 my-6 rounded-2xl p-2 ">
+      <td className="p-2">
+        <div className="flex gap-3">
+          <div className="size-16 bg-gray-200 rounded-md overflow-hidden">
+            <img
+              src={poster}
+              alt={name}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-col justify-center ">
+            <h4 className="font-semibold text-sm text-wrap capitalize ">
+              {name}
+            </h4>
+            <span className="text-xs text-neutral-400 capitalize">
+              {category}
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col justify-center">
-          <h4 className="font-semibold text-xl capitalize">{name}</h4>
-          <span className="text-xs text-neutral-300">{category}</span>
+      </td>
+      <td>
+        <div className="flex items-center">
+          <button
+            onClick={() => setQty((prev) => prev - 1)}
+            className="size-6 flex items-center justify-center active:bg-black/50 duration-200 active:text-white active:scale-90 text-gray-600 border-gray-400 border rounded-full "
+          >
+            <Minus className="size-4" />
+          </button>
+          <div className=" px-2 py-1 text-center font-medium">{qty}</div>
+          <button
+            onClick={() => setQty((prev) => prev + 1)}
+            className="size-6 flex items-center justify-center active:bg-black/50 duration-200 active:text-white active:scale-90 text-gray-600 border-gray-400 border rounded-full "
+          >
+            <Plus className="size-4" />
+          </button>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="size-10 flex items-center justify-center bg-gray-400 rounded-full ">
-          +
-        </div>
-        <div className="border px-4 py-1 text-center">{quantity}</div>
-        <div className="size-10 flex items-center justify-center bg-gray-400 rounded-full ">
-          -
-        </div>
-      </div>
-      <span className="font-bold text-lg">₹ {price}</span>
-      <X onClick={handleremoveItem} color="red" />
-    </div>
+      </td>
+      <td className="font-bold text-lg">₹ {price}</td>
+      <td>
+        <X className="cursor-pointer" onClick={handleremoveItem} color="red" />
+      </td>
+    </tr>
   );
 };
 
