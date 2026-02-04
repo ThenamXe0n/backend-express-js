@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addItemToCartAPI,
+  clearCartAPI,
   getUserCartItemsAPI,
+  removeCartItemAPI,
 } from "../services/apiCollection";
 
 const initialState = {
@@ -33,6 +35,26 @@ export const getUserCartItemsAsync = createAsyncThunk(
     }
   },
 );
+
+export const removeCartItemAsync = createAsyncThunk(
+  "cart/remove",
+  async (cartId) => {
+    try {
+      const response = await removeCartItemAPI(cartId);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+);
+export const clearCartAsync = createAsyncThunk("cart/clear", async () => {
+  try {
+    const response = await clearCartAPI();
+    return response;
+  } catch (error) {
+    return error;
+  }
+});
 
 const CartSlice = createSlice({
   name: "cart",
@@ -67,8 +89,23 @@ const CartSlice = createSlice({
         state.isloading = false;
         state.totalItem = state.cartItems.length;
       })
-      .addCase(getUserCartItemsAsync.rejected, (state, action) => {
+      .addCase(getUserCartItemsAsync.rejected, (state) => {
         state.isloading = false;
+      })
+      .addCase(removeCartItemAsync.pending, (state) => {
+        state.isloading = true;
+      })
+      .addCase(removeCartItemAsync.fulfilled, (state, action) => {
+        let newItemList = state.cartItems.filter(
+          (item) => item._id !== action.payload._id,
+        );
+        state.cartItems = newItemList;
+        state.totalItem = newItemList.length;
+        state.isloading = false;
+      })
+      .addCase(clearCartAsync.fulfilled, (state) => {
+        state.cartItems = [];
+        state.totalItem = 0;
       });
   },
 });

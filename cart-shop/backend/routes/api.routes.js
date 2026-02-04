@@ -20,7 +20,12 @@ import {
 } from "../controllers/Product.controller.js";
 import upload from "../config/multerConfig.js";
 import { isLoggedIn, isVendor } from "../middleware/authmiddlewares.js";
-import { addItemsToCart, getUserCart } from "../controllers/Cart.controller.js";
+import {
+  addItemsToCart,
+  clearUserCart,
+  getUserCart,
+  removeItemFromCart,
+} from "../controllers/Cart.controller.js";
 const router = Router();
 
 // ============user routers=========
@@ -48,5 +53,7 @@ router.patch("/update-profile-details", isLoggedIn, updateuserDetails);
 // =====================cart======================
 router.post("/cart", isLoggedIn, addItemsToCart);
 router.get("/cart", isLoggedIn, getUserCart);
+router.delete("/cart/:cartId", isLoggedIn, removeItemFromCart);
+router.get("/cart/clear", isLoggedIn, clearUserCart);
 
 export default router;

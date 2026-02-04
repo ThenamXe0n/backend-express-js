@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { BreadCrumbs } from "../components/ui/microUiComponent";
 import { useLocation } from "react-router";
 import { Minus, Plus, ShoppingCart, X } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItemTable from "../components/tables/CartItemTable";
+import { clearCartAsync, removeCartItemAsync } from "../redux/cartSlice";
+import toast from "react-hot-toast";
 
 const MyCart = () => {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { cartItems, isLoading, totalItem } = useSelector(
     (state) => state.myCart,
   );
+  const handleClearCart = () => {
+    if (confirm("are you sure to clear cart?")) {
+      dispatch(clearCartAsync());
+      toast.success("cart is cleared!");
+    }
+  };
   return (
     <section className="max-w-7xl mx-auto">
       <BreadCrumbs path={pathname} />
@@ -22,7 +31,10 @@ const MyCart = () => {
                 ( product {totalItem} )
               </span>
             </div>
-            <div className="flex items-center font-medium cursor-pointer gap-1 capitalize text-red-500">
+            <div
+              onClick={handleClearCart}
+              className="flex items-center font-medium cursor-pointer gap-1 capitalize text-red-500"
+            >
               <X size={20} /> clear carts
             </div>
           </div>
@@ -57,9 +69,11 @@ const MyCart = () => {
 };
 
 const ItemTile = ({ poster, category, name, quantity, price, id }) => {
+  const dispatch = useDispatch();
   const [qty, setQty] = useState(quantity);
   const handleremoveItem = () => {
-    console.log(id);
+    console.log("item to delete id is ==>", id);
+    dispatch(removeCartItemAsync(id));
   };
   return (
     <tr className="border border-gray-200 my-6 rounded-2xl p-2 ">
@@ -107,7 +121,7 @@ const ItemTile = ({ poster, category, name, quantity, price, id }) => {
   );
 };
 
-const SubTotalSection = ({ discount=100, subtotal=2000 }) => {
+const SubTotalSection = ({ discount = 100, subtotal = 2000 }) => {
   return (
     <div className="flex-1 p-4 h-fit space-y-4 rounded-3xl bg-slate-100 border-3 border-gray-100 ">
       <div className="font-medium">Promo code</div>

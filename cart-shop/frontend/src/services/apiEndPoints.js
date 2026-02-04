@@ -4,5 +4,6 @@ export const apiPaths = {
   fetchApprovedProducts: "/api/product/getApproved",
   fetchSingleProductByProductCode: "/api/product/getSingle/",
   cartEndPoint: "/api/cart",
-  logout:"/api/user/logout"
+  clearCart: "/api/cart/clear",
+  logout: "/api/user/logout",
 };

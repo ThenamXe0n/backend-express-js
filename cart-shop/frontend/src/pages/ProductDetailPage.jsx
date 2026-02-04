@@ -4,7 +4,16 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import CardLoader from "../components/ui/CardLoader";
 import { fetchSingleProductByProductCodeAsync } from "../redux/productSlice";
 import { BreadCrumbs } from "../components/ui/microUiComponent";
-import { ShoppingBasket, Heart, Share2, Star, Check, VanIcon, LockKeyhole, ArrowDownRightFromCircle } from "lucide-react";
+import {
+  ShoppingBasket,
+  Heart,
+  Share2,
+  Star,
+  Check,
+  VanIcon,
+  LockKeyhole,
+  ArrowDownRightFromCircle,
+} from "lucide-react";
 import { routePath } from "../routes/routePath";
 import { Notify } from "notiflix";
 import { addItemToCartAsync } from "../redux/cartSlice";
@@ -27,7 +36,7 @@ function ProductDetailPage() {
       return;
     }
 
-    let payload = { ...item, quantity: 1 };
+    let payload = { item, quantity: 1 };
     dispatch(addItemToCartAsync(payload));
     Notify.success(`${item?.name} added to cart!`);
   };
@@ -45,7 +54,7 @@ function ProductDetailPage() {
   const discount = selectedProduct?.mrp
     ? Math.round(
         ((selectedProduct.mrp - selectedProduct.price) / selectedProduct.mrp) *
-          100
+          100,
       )
     : 0;
 
@@ -207,19 +216,25 @@ function ProductDetailPage() {
               {/* Additional Info */}
               <div className="grid grid-cols-3 gap-4 pt-4">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-1 flex flex-col items-center"><VanIcon size={40}/></div>
+                  <div className="text-2xl mb-1 flex flex-col items-center">
+                    <VanIcon size={40} />
+                  </div>
                   <p className="text-lg text-gray-600 font-medium">
                     Free Delivery
                   </p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-1 flex flex-col items-center"><LockKeyhole size={40}/></div>
+                  <div className="text-2xl mb-1 flex flex-col items-center">
+                    <LockKeyhole size={40} />
+                  </div>
                   <p className="text-lg text-gray-600 font-medium">
                     Secure Payment
                   </p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-1 flex flex-col items-center"><ArrowDownRightFromCircle size={40}/></div>
+                  <div className="text-2xl mb-1 flex flex-col items-center">
+                    <ArrowDownRightFromCircle size={40} />
+                  </div>
                   <p className="text-lg text-gray-600 font-medium">
                     Easy Returns
                   </p>

@@ -18,7 +18,7 @@ export async function logoutuserAPI() {
   try {
     const response = await axiosInstance.get(apiPaths.logout);
     toast.success("user logged out!");
-    window.location.replace(routePath.LOGIN)
+    window.location.replace(routePath.LOGIN);
   } catch (error) {
     throw new Error(error);
   }
@@ -77,10 +77,10 @@ export async function fetchLoggedInUserDetailsAPI() {
 // ================================cart api=========================
 export async function addItemToCartAPI(itemDetails) {
   try {
-    const response = await axiosInstance.post(apiPaths.cartEndPoint, {
-      item: itemDetails._id,
-      quantity: itemDetails.qunatity,
-    });
+    const response = await axiosInstance.post(
+      apiPaths.cartEndPoint,
+      itemDetails,
+    );
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -90,6 +90,25 @@ export async function getUserCartItemsAPI() {
   try {
     const response = await axiosInstance.get(apiPaths.cartEndPoint);
     return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function removeCartItemAPI(cartId) {
+  try {
+    const response = await axiosInstance.delete(
+      `${apiPaths.cartEndPoint}/${cartId}`,
+    );
+    return response.data.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+export async function clearCartAPI() {
+  try {
+    const response = await axiosInstance.get(`${apiPaths.clearCart}/`);
+    return response.data.data;
   } catch (error) {
     throw new Error(error);
   }
